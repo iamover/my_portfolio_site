@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Портфолио — сайты для малого бизнеса</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f7f7f4;
+    --card: #ffffff;
+    --ink: #15161a;
+    --ink-dim: #5b5f6b;
+    --ink-faint: #9297a3;
+    --accent: #4640de;
+    --accent-soft: #edecfc;
+    --line: rgba(21,22,26,0.10);
+    --radius: 16px;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+  }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:'Inter', sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a{ color:inherit; }
+  .wrap{ max-width: 900px; margin:0 auto; padding: 0 24px; }
+  h1,h2{ font-family:'Space Grotesk', sans-serif; font-weight:700; margin:0; letter-spacing:-0.01em; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  :focus-visible{ outline: 3px solid var(--accent); outline-offset: 3px; border-radius:4px; }
+
+  header{ padding: 100px 0 70px; }
+  .prompt{ font-family:'JetBrains Mono', monospace; font-size:13.5px; color: var(--accent); margin-bottom: 18px; }
+  .prompt::before{ content: "$ "; opacity:.6; }
+  h1{ font-size: clamp(34px, 5.5vw, 52px); line-height:1.15; }
+  h1 span{ color: var(--accent); }
+  .lead{ margin-top: 18px; max-width: 60ch; color: var(--ink-dim); font-size: 17px; }
+  .header-links{ margin-top: 30px; display:flex; gap: 14px; flex-wrap:wrap; }
+  .btn{ text-decoration:none; font-weight:600; font-size: 14.5px; padding: 12px 20px; border-radius: 999px; transition: all .18s ease; }
+  .btn-primary{ background: var(--ink); color:#fff; }
+  .btn-primary:hover{ background: var(--accent); transform: translateY(-1px); }
+  .btn-outline{ border: 1px solid var(--line); color: var(--ink); }
+  .btn-outline:hover{ border-color: var(--ink); }
+
+  section{ padding: 50px 0; }
+  .section-label{ font-family:'JetBrains Mono', monospace; font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 22px; }
+
+  .projects{ display:grid; gap: 26px; }
+  .project-card{ background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow:hidden; transition: transform .2s ease, box-shadow .2s ease; }
+  .project-card:hover{ transform: translateY(-3px); box-shadow: 0 20px 40px -24px rgba(21,22,26,0.25); }
+
+  .browser-bar{ display:flex; align-items:center; gap: 10px; padding: 10px 14px; background: #f1f1ee; border-bottom: 1px solid var(--line); }
+  .browser-dots{ display:flex; gap: 6px; }
+  .browser-dots span{ width: 8px; height: 8px; border-radius: 50%; background: #d6d6d2; }
+  .browser-url{ flex:1; background:#fff; border: 1px solid var(--line); border-radius: 6px; padding: 5px 12px; font-family:'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-dim); text-align:center; }
+
+  .preview{ aspect-ratio: 16/9; position:relative; overflow:hidden; display:block; background: #f1f1ee; }
+  .preview img{ width:100%; height:100%; object-fit:cover; object-position: top center; display:block; }
+
+  .project-body{ padding: 22px 24px 24px; }
+  .project-head{ display:flex; justify-content:space-between; align-items:baseline; gap: 12px; flex-wrap:wrap; }
+  .project-head h2{ font-size: 22px; }
+  .project-tags{ display:flex; gap: 8px; flex-wrap:wrap; }
+  .tag{ font-family:'JetBrains Mono', monospace; font-size: 11.5px; color: var(--accent); background: var(--accent-soft); padding: 4px 10px; border-radius: 999px; }
+  .project-desc{ margin-top: 10px; color: var(--ink-dim); font-size: 15px; max-width: 60ch; }
+  .project-links{ margin-top: 18px; display:flex; gap: 20px; }
+  .project-links a{ text-decoration:none; font-weight:600; font-size: 14px; display:inline-flex; align-items:center; gap:6px; }
+  .project-links a.live{ color: var(--accent); }
+  .project-links a.repo{ color: var(--ink-dim); }
+  .project-links a:hover{ opacity: 0.72; }
+
+  .stack{ display:flex; flex-wrap:wrap; gap: 10px; }
+  .stack span{ font-family:'JetBrains Mono', monospace; font-size: 13px; color: var(--ink-dim); background: var(--card); border: 1px solid var(--line); padding: 8px 14px; border-radius: 999px; }
+
+  .contact-card{ background: var(--ink); color:#fff; border-radius: 20px; padding: 40px; display:flex; justify-content:space-between; align-items:center; gap: 20px; flex-wrap:wrap; }
+  .contact-card h2{ color:#fff; font-size: 24px; }
+  .contact-card p{ color: rgba(255,255,255,0.65); margin-top: 8px; font-size: 15px; }
+  .contact-links{ display:flex; gap: 12px; flex-wrap:wrap; }
+  .contact-links a{ text-decoration:none; font-weight:600; font-size: 14px; background: rgba(255,255,255,0.1); padding: 11px 18px; border-radius: 999px; transition: background .18s ease; }
+  .contact-links a:hover{ background: var(--accent); }
+
+  footer{ padding: 40px 0 60px; text-align:center; color: var(--ink-faint); font-family:'JetBrains Mono', monospace; font-size: 12.5px; }
+
+  @media (max-width: 640px){
+    header{ padding: 70px 0 50px; }
+    .contact-card{ flex-direction:column; align-items:flex-start; }
+  }
+
+  .reveal{ opacity:0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="prompt mono">whoami</div>
+    <h1>Делаю сайты для<br><span>малого бизнеса</span></h1>
+    <p class="lead">Собираю сайты-визитки для локальных бизнесов — от идеи и дизайна до размещения в сети. Ниже — уже готовые проекты.</p>
+    <div class="header-links">
+      <a class="btn btn-primary" href="#projects">Смотреть проекты</a>
+      <a class="btn btn-outline" href="https://github.com/iamover" target="_blank" rel="noopener">GitHub-профиль</a>
+    </div>
+  </header>
+
+  <section id="projects">
+    <div class="section-label mono">// projects</div>
+    <div class="projects">
+
+      <div class="project-card card-raketa reveal">
+        <div class="browser-bar">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">iamover.github.io/raketatatto</div>
+        </div>
+        <a class="preview" href="https://iamover.github.io/raketatatto/" target="_blank" rel="noopener">
+          <img src="images/rakets.png" alt="Скриншот сайта Ракета — тату-студия">
+        </a>
+        <div class="project-body">
+          <div class="project-head">
+            <h2>Ракета — тату-студия</h2>
+            <div class="project-tags"><span class="tag">HTML/CSS</span><span class="tag">JS</span></div>
+          </div>
+          <p class="project-desc">Сайт-визитка для тату-студии в Казани: портфолио работ, отзывы, запись через мессенджеры.</p>
+          <div class="project-links">
+            <a class="live" href="https://iamover.github.io/raketatatto/" target="_blank" rel="noopener">Открыть сайт →</a>
+            <a class="repo" href="https://github.com/iamover/raketatatto" target="_blank" rel="noopener">Код на GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card card-yamal reveal">
+        <div class="browser-bar">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">iamover.github.io/yamal</div>
+        </div>
+        <a class="preview" href="https://iamover.github.io/yamal/" target="_blank" rel="noopener">
+          <img src="images/yamal.png" alt="Скриншот сайта Ямал — парикмахерская">
+        </a>
+        <div class="project-body">
+          <div class="project-head">
+            <h2>Ямал — парикмахерская</h2>
+            <div class="project-tags"><span class="tag">HTML/CSS</span><span class="tag">JS</span></div>
+          </div>
+          <p class="project-desc">Сайт-визитка для парикмахерской в Казани: прайс-лист, портфолио, онлайн-запись, награда 2ГИС.</p>
+          <div class="project-links">
+            <a class="live" href="https://iamover.github.io/yamal/" target="_blank" rel="noopener">Открыть сайт →</a>
+            <a class="repo" href="https://github.com/iamover/yamal" target="_blank" rel="noopener">Код на GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card card-pokras reveal">
+        <div class="browser-bar">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">iamover.github.io/ВАШ_РЕПОЗИТОРИЙ</div>
+        </div>
+        <a class="preview" href="https://iamover.github.io/pokras/" target="_blank" rel="noopener">
+          <img src="images/pokras.png" alt="Скриншот сайта Покрас — студия окрашивания">
+        </a>
+        <div class="project-body">
+          <div class="project-head">
+            <h2>Покрас — студия окрашивания</h2>
+            <div class="project-tags"><span class="tag">HTML/CSS</span><span class="tag">JS</span></div>
+          </div>
+          <p class="project-desc">Сайт-визитка для студии креативного окрашивания в Санкт-Петербурге: яркая история бренда, портфолио работ и онлайн-запись.</p>
+          <div class="project-links">
+            <a class="live" href="https://iamover.github.io/pokras/" target="_blank" rel="noopener">Открыть сайт →</a>
+            <a class="repo" href="https://github.com/iamover/pokras" target="_blank" rel="noopener">Код на GitHub</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label mono">// stack</div>
+    <div class="stack">
+      <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Python</span><span>Playwright</span><span>GitHub Pages</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="contact-card reveal">
+      <div>
+        <h2>Нужен сайт для вашего бизнеса?</h2>
+        <p>Напишите — обсудим детали и сроки.</p>
+      </div>
+      <div class="contact-links">
+        <!-- замени на свои реальные контакты -->
+        <a href="https://t.me/ВАШ_НИК" target="_blank" rel="noopener">Telegram</a>
+        <a href="mailto:ваша@почта.ru">Email</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 · built with html, css & a lot of trial and error</footer>
+
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var items = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      items.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    items.forEach(function(el){ io.observe(el); });
+  });
+</script>
+
+</body>
+</html>
